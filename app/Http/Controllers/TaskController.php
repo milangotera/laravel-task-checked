@@ -51,7 +51,7 @@ class TaskController extends Controller
             $task->name = $request->input('name');
             $task->description = $request->input('description');
             $task->status = $request->input('status') ? 1 : 0;
-            $task->id_user = Auth::user()->id;
+            $task->id_users = Auth::user()->id;
             $saved = $task->save();
             if($saved){
                 session()->flash("message","new task created");
@@ -71,7 +71,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $tasks = Task::where('id_user', '=', Auth::user()->id)->where('id', '=', $id)->first();
+        $tasks = Task::where('id_users', '=', Auth::user()->id)->where('id', '=', $id)->first();
         if(!$tasks){
             session()->flash("message","the task does not exist");
             return redirect('home');
@@ -88,7 +88,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tasks = Task::where('id_user', '=', Auth::user()->id)->where('id', '=', $id)->first();
+        $tasks = Task::where('id_users', '=', Auth::user()->id)->where('id', '=', $id)->first();
         
         if(!$tasks){
             session()->flash("message","the task does not exist");
@@ -126,7 +126,7 @@ class TaskController extends Controller
      */
     public function delete($id)
     {
-        $tasks = Task::where('id_user', '=', Auth::user()->id)->where('id', '=', $id)->first();
+        $tasks = Task::where('id_users', '=', Auth::user()->id)->where('id', '=', $id)->first();
         if(!$tasks){
             session()->flash("message","the task does not exist");
             return redirect('home');
